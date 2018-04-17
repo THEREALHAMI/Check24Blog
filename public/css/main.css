@@ -1,0 +1,32 @@
+#artikel{
+    margin-top: 40px;
+}
+.titel{
+    text-decoration: underline;
+    font-size: 20px;
+}
+.form-style{
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid silver;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-label-style {
+    width: 12em;
+    display: block;
+    float: left;
+}
+.form-style textarea{
+    resize: none;
+}
+.only-send-btn{
+    margin-top: 10px;
+    background-color: #2196F3;
+}
+main{
+    margin: 0 auto;
+    width: 41.3%;
+}
+

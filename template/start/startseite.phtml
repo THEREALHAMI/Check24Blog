@@ -1,0 +1,38 @@
+
+<?php  foreach ($blogEntries as $blogEntry) : ?>
+
+    <?php
+    $source = $blogEntry->getDate();
+    $splitDateTime = explode(' ',$source);
+    $date = new DateTime($splitDateTime[0]);
+    $dateFormat = $date->format('d.m.Y');
+    ?>
+
+    <div id="artikel">
+        <article class="w3-border w3-blue w3-padding"><p>
+                <?= date('d.m.Y') === $dateFormat ? $dateFormat = 'Heute '.$splitDateTime[1] : $dateFormat.' Zeit: '.$splitDateTime[1]?>
+                <?= $blogEntry->getTitel() ?> </p>
+        </article>
+
+        <article class="w3-border w3-blue w3-padding">
+            <?php $content = strlen( $blogEntry->getContent());
+            echo htmlentities(substr($blogEntry->getContent(), 0, 1000));
+            if ($content >= 1000) { ?>
+                <a href="/detail?ID=<?= $blogEntry->getId()?>">[...]</a>
+            <?php } else {?>
+                <a href="/detail?ID=<?= $blogEntry->getId() ?>"> [Detailseite]</a>
+            <?php } ?>
+        </article>
+
+        <article class="w3-border w3-blue w3-padding">
+            <label>Author: <?=$blogEntry->getAuthor()?> </label>
+            <label class="w3-right">Kommentare: <?= $blogEntry->getCommentCount()?></label>
+        </article>
+    </div>
+<?php endforeach; ?>
+
+<?php if ($lastPage != $nextPage) : ?>
+    <a class="w3-button w3-margin only-send-btn" href="?page=<?= $nextPage ?>">Weitere Einträge</a>
+<?php else : ?>
+    <a class="w3-button w3-margin only-send-btn" href="/">start</a>
+<?php endif; ?>

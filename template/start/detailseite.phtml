@@ -1,0 +1,56 @@
+<?php
+$dat =  new DateTime($entryData->getDate());
+$dateFormat = $dat->format('d.m.Y');
+?>
+<div id="artikel">
+    <article class="w3-border w3-blue w3-padding"><?= $dateFormat?> <?= $entryData->getTitel()?></article>
+    <article class="w3-border w3-blue w3-padding"><?=  $entryData->getContent() ?> </article>
+    <article class="w3-border w3-blue w3-padding"><?= $entryData->getAuthor() ?></article>
+</div><br/><br/><br/><br/>
+
+<label class="titel"><?= count($entryData->getComments() )?>.Kommentarvorhanden :</label>
+<?php foreach ($entryData->getComments() as $data) : ?>
+    <?php
+    if($entryData->getCommentCount() != 0) {
+        $source = $data->getDate();
+        $splitDateTime = explode(' ', $source);
+        $date = new DateTime($splitDateTime[0]);
+        $dateFormat = $date->format('d.m.Y');
+    }
+    ?>
+    <div id="artikel">
+        <article class="w3-border w3-blue w3-padding">
+            <?= $data->getDate()?><label> meint am: </label><?= $dateFormat?>
+        </article>
+        <article class="w3-border w3-blue w3-padding"><?= $data->getContent()?> </article>
+        <article class="w3-border w3-blue w3-padding">
+            <label>Email: </label><?= $data->getMail() ?>
+            <label>URL: </label><?= $data->getUrl() ?>
+        </article>
+    </div>
+<?php endforeach; ?>
+<br/><br/><br/><br/><br/>
+
+<form method="post" action="/addComment?ID=<?=$ID?>" class="form-style">
+
+    <fieldset>
+        <legend class="titel">Kommentarschreiben :</legend>
+        <p>
+            <label class="form-label-style">Name :</label>
+            <input type="text" name="name" value=""/>
+        </p>
+        <p>
+            <label class="form-label-style">Mail (optional) :</label>
+            <input type="text" name="mail" value=""/>
+        </p>
+        <p>
+            <label class="form-label-style">URL (optional) :</label>
+            <input type="text" name="url" value=""/>
+        </p>
+        <p>
+            <label class="form-label-style">Bemerkung :</label>
+            <textarea rows="4" cols="25" name="bemerkung" placeholder="Bemerkungen!!"></textarea>
+        </p>
+    </fieldset>
+    <input class="w3-button only-send-btn" type="Submit" name="" value="Absenden"/>
+</form>

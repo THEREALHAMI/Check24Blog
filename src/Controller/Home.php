@@ -5,16 +5,15 @@ namespace Controller;
 
 use \Check24Framework\ControllerInterface;
 use Check24Framework\ViewModel;
-use Check24Framework\DiContainer;
-use Factory\Entry;
 
 class Home implements ControllerInterface
 {
 
-    private $diContainer;
-    public function __construct(DiContainer $diContainer)
+    private $repositoryEntry;
+
+    public function __construct($repositoryEntry)
     {
-        $this->diContainer = $diContainer;
+        $this->repositoryEntry = $repositoryEntry;
     }
 
     /**
@@ -24,24 +23,24 @@ class Home implements ControllerInterface
     public function action($request): viewModel
     {
 
-        $currentPage = $request->getFromQuery('page') ? $request->getFromQuery('page') : 0;
-        $nextPage = $currentPage + 1;
-        $limit = $currentPage * 3;
+        $currentpage = $request->getfromquery('page') ? $request->getfromquery('page') : 0;
+        $nextpage = $currentpage + 1;
+        $limit = $currentpage * 3;
 
-        $entry = $this->diContainer->get('Repository\Entry');
-        $entryData = $entry->getFromDatabase($limit);
-        $countEntries = $entry->getCountEntries();
-        $lastPage = ceil(($countEntries[0] / 3));
+        $entry = $this->repositoryEntry;
+        $entrydata = $entry->getfromdatabase($limit);
+        $countentries = $entry->getcountentries();
+        $lastpage = ceil(($countentries[0] / 3));
 
-        $viewModel = new ViewModel();
-        $viewModel->setTemplate('../template/start/startseite.phtml');
-        $viewModel->setTemplateVariables([
-            'blogEntries' => $entryData,
-            'currentPage' => $currentPage,
-            'nextPage' => $nextPage,
-            'lastPage' => $lastPage
+        $viewmodel = new viewmodel();
+        $viewmodel->settemplate('../template/start/startseite.phtml');
+        $viewmodel->settemplatevariables([
+            'blogEntries' => $entrydata,
+            'currentpage' => $currentpage,
+            'nextPage' => $nextpage,
+            'lastPage' => $lastpage
         ]);
 
-        return $viewModel;
+        return $viewmodel;
     }
 }

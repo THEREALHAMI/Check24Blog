@@ -17,13 +17,12 @@ class User
      * @param $username
      * @return mixed
      */
-    public function checkUserByUsername($username) :object
+    public function checkUserByUsername($username)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM userdata WHERE loginname = :username");
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $user =  $stmt->fetchObject('\Entity\User');
-
         return $user;
     }
 }

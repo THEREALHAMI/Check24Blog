@@ -5,15 +5,13 @@ namespace Controller;
 use Check24Framework\ControllerInterface;
 use Check24Framework\Request;
 use Check24Framework\ViewModel;
-use Factory\Entry;
-use Factory\Comment;
 
 class Detail implements ControllerInterface
 {
-    private $diContainer;
-    public function __construct(DiContainer $diContainer)
+    private $entry;
+    public function __construct($entry)
     {
-        $this->diContainer = $diContainer;
+        $this->entry = $entry;
     }
     /**
      * @param Request $request
@@ -26,8 +24,8 @@ class Detail implements ControllerInterface
 
         $blogId = $request->getFromQuery('ID');
 
-        $entry = Entry::create();
-        $entryData = $entry->getEntryById($blogId);
+
+        $entryData = $this->entry->getEntryById($blogId);
 
             $viewModel->setTemplateVariables([
                 'entryData'=> $entryData,

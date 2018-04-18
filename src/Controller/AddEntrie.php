@@ -3,17 +3,15 @@
 namespace Controller;
 
 use Check24Framework\ControllerInterface;
-use Check24Framework\DiContainer;
 use Check24Framework\ViewModel;
 use Check24Framework\Request;
-use  Factory\Entry;
 
 class AddEntrie implements ControllerInterface
 {
-    private $diContainer;
-    public function __construct(DiContainer $diContainer)
+    private $entry;
+    public function __construct($entry)
     {
-        $this->diContainer = $diContainer;
+        $this->entry = $entry;
     }
     /**
      * @param Request $request
@@ -27,8 +25,8 @@ class AddEntrie implements ControllerInterface
            $content = $request->getFromPost('content');
            $authorId = $_SESSION['ID'];
 
-           $entry = Entry::create();
-           $entry->addToDatabase($date,$titel,$content,$authorId);
+
+           $this->entry->addToDatabase($date,$titel,$content,$authorId);
        }
         $viewModel = new ViewModel();
         $viewModel->setTemplate('../template/start/eintrag.phtml');

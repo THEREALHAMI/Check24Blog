@@ -9,11 +9,16 @@ use Factory\User;
 class Engine
 {
     private $loginStatus;
+    private $user;
 
+    public function __construct($user)
+    {
+        $this->user = $user;
+    }
     /**
      * @param Request $request
      * @return bool
-     * @throws LoginMistake
+     * @throws LoginMistakea
      */
     public function validate(Request $request) :bool
     {
@@ -21,7 +26,7 @@ class Engine
         $username = $request->getFromPost('login');
         $password = $request->getFromPost('password');
 
-        $user = User::create();
+        $user = $this->user;
         $users = $user->checkUserByUsername($username);
 
         if(empty($username) || empty($password)){

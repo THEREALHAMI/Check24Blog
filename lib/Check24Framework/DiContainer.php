@@ -12,6 +12,10 @@ class DiContainer
         $this->config = $config;
     }
 
+    /**
+     * @param $classname
+     * @return mixed
+     */
     public function get($classname)
     {
         if (isset($this->instances[$classname])) {
@@ -21,6 +25,10 @@ class DiContainer
         }
     }
 
+    /**
+     * @param $classname
+     * @return mixed
+     */
     private function createInstance($classname)
     {
         $this->instances[$classname] = $this->config['factories'][$classname]::create($classname, $this);

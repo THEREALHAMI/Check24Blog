@@ -1,6 +1,6 @@
 <?php
 
-namespace Factory;
+namespace Factory\Repository;
 
 use Check24Framework\DiContainer;
 use Check24Framework\Factory\FactoryInterface;

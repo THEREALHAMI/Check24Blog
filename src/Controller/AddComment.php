@@ -4,16 +4,14 @@
 namespace Controller;
 
 use Check24Framework\ControllerInterface;
-use Check24Framework\DiContainer;
 use Check24Framework\Request;
-use Factory\Comment;
 
 class AddComment implements ControllerInterface
 {
-    private $diContainer;
-    public function __construct(DiContainer $diContainer)
+    private $comment;
+    public function __construct( $comment)
     {
-        $this->diContainer = $diContainer;
+        $this->comment = $comment;
     }
     public function action(Request $request)
     {
@@ -24,8 +22,7 @@ class AddComment implements ControllerInterface
         $bemerkung = $request->getFromPost('bemerkung');
         $ID =$request->getFromQuery('ID');
 
-        $comment = Comment::create();
-        $comment->addToDatabase($name,$mail,$url,$bemerkung,$ID);
+        $this->comment->addToDatabase($name,$mail,$url,$bemerkung,$ID);
 
         header("location:/detail?ID=".$ID,true,301);
     }

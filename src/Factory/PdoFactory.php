@@ -3,6 +3,8 @@
 namespace Factory;
 
 
+use Controller\Pdo;
+
 class PdoFactory
 {
     /**
@@ -10,7 +12,7 @@ class PdoFactory
  */
     public static function create()
     {
-        return new \PDO('mysql:host=localhost;dbname=blog','root','');
+        return new Pdo('mysql:host=localhost;dbname=blog','root','');
     }
 
 }

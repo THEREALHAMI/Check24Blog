@@ -11,7 +11,9 @@ class User
     /**
      * @return string
      */
+
     public function getLoginname(): string
+
     {
         return $this->loginname;
     }

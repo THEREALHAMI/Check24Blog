@@ -11,16 +11,15 @@ $dateFormat = $dat->format('d.m.Y');
 <label class="titel"><?= count($entryData->getComments() )?>.Kommentarvorhanden :</label>
 <?php foreach ($entryData->getComments() as $data) : ?>
     <?php
-    if($entryData->getCommentCount() != 0) {
         $source = $data->getDate();
         $splitDateTime = explode(' ', $source);
         $date = new DateTime($splitDateTime[0]);
         $dateFormat = $date->format('d.m.Y');
-    }
+        //todo: date ist nicht richtig formatiert
     ?>
     <div id="artikel">
         <article class="w3-border w3-blue w3-padding">
-            <?= $data->getDate()?><label> meint am: </label><?= $dateFormat?>
+            <label> meint am: </label><?= $dateFormat?>
         </article>
         <article class="w3-border w3-blue w3-padding"><?= $data->getContent()?> </article>
         <article class="w3-border w3-blue w3-padding">

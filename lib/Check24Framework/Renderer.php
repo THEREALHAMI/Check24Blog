@@ -1,4 +1,5 @@
 <?php
+
 namespace Check24Framework;
 
 
@@ -8,9 +9,11 @@ class Renderer
     {
         $layoutTemplate = new ViewModel();
         $layoutTemplate->setTemplate('../template/html/layout.phtml');
-        $layoutTemplate->setTemplateVariables(['templateOutput'=>$viewModel->renderTemplate()]);
-        echo $layoutTemplate;
-
+        $layoutTemplate->setTemplateVariables([
+            'templateOutput' => $viewModel->renderTemplate(),
+            'layoutVariables' => $viewModel->getLayoutVariables()
+        ]);
+     echo  $layoutTemplate;
     }
 
 }

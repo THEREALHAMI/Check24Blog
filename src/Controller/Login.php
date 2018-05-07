@@ -2,17 +2,18 @@
 
 namespace Controller;
 
-use Check24Framework\Exception\LoginMistake;
-use Check24Framework\ControllerInterface;
+use Check24Framework\AbstractController;
 use Check24Framework\ViewModel;
 
-class Login implements ControllerInterface
+class Login extends AbstractController
 {
     private $engine;
+
     public function __construct($engine)
     {
         $this->engine = $engine;
     }
+
     /**
      * @param \Check24Framework\Request $request
      * @return ViewModel
@@ -20,18 +21,27 @@ class Login implements ControllerInterface
     public function action($request): ViewModel
     {
 
+        if ($request->getFromPost('checkingLogin'))
+        {
+            $username = $request->getFromPost('login');
+            $password = $request->getFromPost('password');
 
-        if ($request->getFromPost('checkingLogin')) {
-            try {
-                $_SESSION['validate'] = $this->engine->validate($request);
-               header('Location:/', true, 301);
-               die();
-            } catch (LoginMistake $exception) {
-                echo $exception->getMessage();
+            $validateArray = $this->engine->validate($username, $password);
+            $_SESSION['validate'] = $validateArray['validate'];
+
+            $_SESSION['ID'] = $validateArray['ID'];
+
+            if ($_SESSION['validate']== true) {
+                $this->redirectTo('Location:/');
+                die();
             }
+            $errorMessage = 'Nicht gültige Angaben';
+            $_SESSION['validate']= null;
         }
         $viewModel = new ViewModel();
         $viewModel->setTemplate('../template/start/login.phtml');
+        $viewModel->setTemplateVariables(['errorMessage' => !empty($errorMessage) ? $errorMessage : ""]);
+        $viewModel->setLayoutVariables(['validate'=>!empty($_SESSION['validate']) ? $_SESSION['validate'] : ""]);
         return $viewModel;
     }
 }

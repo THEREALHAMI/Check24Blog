@@ -11,7 +11,6 @@ return [
         '/addComment' => Controller\AddComment::class
     ],
     'factories' => [
-        // todo: framework und projekt configs voneinander trennen
         \Repository\Comment::class => \Factory\Repository\Comment::class,
         \Repository\Entry::class => \Factory\Repository\Entry::class,
         \Repository\User::class => \Factory\Repository\User::class,
@@ -24,7 +23,14 @@ return [
         \Controller\AddComment::class => \Factory\Controller\AddComment::class,
         \Controller\Logout::class => \Factory\Controller\Logout::class,
         \Controller\Impressum::class => \Factory\Controller\Impressum::class,
+    ],
+    'events'=>[
+        \Check24Framework\EventInterface::PRERENDER =>[
+            EventListener\Validate::class,
+        ],
+        \Check24Framework\EventInterface::POSTRENDER => [
+
+        ]
+
     ]
 ];
-
-// todo config erweitern für di-configuration

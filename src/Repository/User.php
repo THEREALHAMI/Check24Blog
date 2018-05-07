@@ -2,7 +2,6 @@
 
 
 namespace Repository;
-use Factory\PdoFactory;
 
 class User
 {

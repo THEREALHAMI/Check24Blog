@@ -2,11 +2,11 @@
 // TEXT ohne leerzeichen  = FEHLER
 namespace Controller;
 
-use Check24Framework\ControllerInterface;
+use Check24Framework\AbstractController;
 use Check24Framework\Request;
 use Check24Framework\ViewModel;
 
-class Detail implements ControllerInterface
+class Detail extends AbstractController
 {
     private $entry;
     public function __construct($entry)

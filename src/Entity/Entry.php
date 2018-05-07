@@ -10,9 +10,28 @@ class Entry
     private $titel = '';
     private $content = '';
     private $commentCount = 0;
-    private $author = null;
+    private $author = 0;
     private $comments = [];
 
+    /**
+     * @param int $author
+     * @return $this
+     */
+    public function setAuthor(int $author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @param string $date
+     * @return $this
+     */
+    public function setDate(string $date)
+    {
+        $this->date = $date;
+        return $this;
+    }
     /**
      * @param array $comments
      * @return Entry

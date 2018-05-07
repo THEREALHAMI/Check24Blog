@@ -1,12 +1,10 @@
 <?php
-//todo: factory für repository erstellen, benutze Konstruker
-
 namespace Controller;
 
-use \Check24Framework\ControllerInterface;
+use Check24Framework\AbstractController;
 use Check24Framework\ViewModel;
 
-class Home implements ControllerInterface
+class Home extends AbstractController
 {
 
     private $repositoryEntry;
@@ -20,7 +18,7 @@ class Home implements ControllerInterface
      * @param \Check24Framework\Request $request
      * @return ViewModel
      */
-    public function action($request): viewModel
+    public function action($request):ViewModel
     {
 
         $currentpage = $request->getfromquery('page') ? $request->getfromquery('page') : 0;
@@ -32,15 +30,15 @@ class Home implements ControllerInterface
         $countentries = $entry->getcountentries();
         $lastpage = ceil(($countentries[0] / 3));
 
-        $viewmodel = new viewmodel();
-        $viewmodel->settemplate('../template/start/startseite.phtml');
-        $viewmodel->settemplatevariables([
+        $viewModel = new ViewModel();
+        $viewModel->settemplate('../template/start/startseite.phtml');
+        $viewModel->settemplatevariables([
             'blogEntries' => $entrydata,
             'currentpage' => $currentpage,
             'nextPage' => $nextpage,
             'lastPage' => $lastpage
         ]);
 
-        return $viewmodel;
+        return $viewModel;
     }
 }

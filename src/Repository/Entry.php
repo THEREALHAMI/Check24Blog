@@ -43,13 +43,13 @@ class Entry
         return $rowCount;
     }
 
-    public function addToDatabase($date, $titel, $content, $authorId)
+    public function addToDatabase(\Entity\Entry $entry)
     {
         $stmt = $this->pdo->prepare("INSERT INTO entrie(date,titel,content,author) VALUES(:date,:titel,:content,:authorID)");
-        $stmt->bindParam(':date', $date);
-        $stmt->bindParam(':titel', $titel);
-        $stmt->bindParam(':content', $content);
-        $stmt->bindParam(':authorID', $authorId);
+        $stmt->bindValue(':date', $entry->getDate());
+        $stmt->bindValue(':titel', $entry->getTitel());
+        $stmt->bindValue(':content', $entry->getContent());
+        $stmt->bindValue(':authorID', $entry->getAuthor());
         $stmt->execute();
 
     }

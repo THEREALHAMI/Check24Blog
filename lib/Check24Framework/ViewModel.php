@@ -8,6 +8,7 @@ class ViewModel
 
     private $currentPath = null;
     private $contentArray = [];
+    private $layoutVariables = [];
 
     public function setTemplate($path)
     {
@@ -15,10 +16,32 @@ class ViewModel
 
     }
 
+    public function setLayoutVariables($variable)
+    {
+        $this->layoutVariables = $variable;
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getLayoutVariables()
+    {
+        return $this->layoutVariables;
+    }
+
     public function setTemplateVariables($variable)
     {
 
         $this->contentArray = $variable;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTemplateVariables()
+    {
+        return $this->contentArray;
     }
 
     /**

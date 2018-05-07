@@ -2,11 +2,12 @@
 
 namespace Controller;
 
-use Check24Framework\ControllerInterface;
+use Check24Framework\AbstractController;
 use Check24Framework\ViewModel;
 use Check24Framework\Request;
+use Entity\Entry;
 
-class AddEntrie implements ControllerInterface
+class AddEntrie extends AbstractController
 {
     private $entry;
     public function __construct($entry)
@@ -20,13 +21,12 @@ class AddEntrie implements ControllerInterface
     public function action(Request $request): viewModel
     {
        if($request->getFromPost('absenden')){
-           $date =date('Y-m-d H:i:s');
-           $titel = $request->getFromPost('titel');
-           $content = $request->getFromPost('content');
-           $authorId = $_SESSION['ID'];
-
-
-           $this->entry->addToDatabase($date,$titel,$content,$authorId);
+           $entry = new Entry();
+           $entry->setDate(date('Y-m-d H:i:s'));
+           $entry->setTitel($request->getFromPost('titel'));
+           $entry->setContent($request->getFromPost('content'));
+           $entry->setAuthor($_SESSION['ID']);
+           $this->entry->addToDatabase($entry);
        }
         $viewModel = new ViewModel();
         $viewModel->setTemplate('../template/start/eintrag.phtml');
